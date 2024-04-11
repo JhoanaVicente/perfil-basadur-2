@@ -1,16 +1,17 @@
 <script>
-
+    import Tabla from './lib/tabla.svelte';
+  
 </script>
 
 <main>
-  <h1>Perfil Basadur</h1>
-  
-
+  <Tabla />
 </main>
 
-
 <style>
-  h1 {
-      color: black;
+  /* Estilos opcionales para el contenedor principal */
+  main {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
   }
 </style>

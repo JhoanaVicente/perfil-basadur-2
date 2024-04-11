@@ -1,75 +1,47 @@
 <script>
-    let respuestas = [
-      [4, 3, 2, 1], // Fila 1
-      [1, 2, 3, 4], // Fila 2
-      // Continuar con las 16 filas restantes
-    ];
-    let resultados = [0, 0, 0, 0]; // Array para almacenar los resultados de las columnas
+    let results = [0, 0, 0, 0]; // Inicializa los resultados de las cuatro columnas
   
-    // Función para calcular los resultados
-    function calcularResultados() {
-      resultados = [0, 0, 0, 0]; // Reinicia los resultados
+    function handleChange(columnIndex, rowIndex, value) {
+      results[columnIndex] += value; // Actualiza el resultado de la columna
+    }
   
-      // Suma las respuestas por columnas
-      respuestas.forEach((fila) => {
-        fila.forEach((respuesta, index) => {
-          // @ts-ignore
-          resultados[index] += parseInt(respuesta);
-        });
-      });
-  
-      // Verifica si la suma total es igual a 240
-      if (resultados.reduce((a, b) => a + b, 0) === 240) {
-        console.log("Resultados:", resultados);
-      } else {
-        console.error("La suma total no es igual a 240. Por favor, revisa tus respuestas.");
-      }
+    function getTotalResult() {
+      return results.reduce((acc, columnTotal) => acc + columnTotal, 0); // Suma los resultados de todas las columnas
     }
   </script>
   
+  {#each [0, 1, 2, 3] as columnIndex}
+    <div class="column">
+      <h2>Columna {columnIndex + 1}</h2>
+      {#each Array.from({ length: 18 }).map((_, rowIndex) => rowIndex) as rowIndex}
+        <div class="row">
+          <span>Palabra {rowIndex + 1}</span>
+          <select on:change={(event) => handleChange(columnIndex, rowIndex, +event.target.value)}>
+            {#each [0, 1, 2, 3, 4] as value}
+              <option value={value}>{value}</option>
+            {/each}
+          </select>
+        </div>
+      {/each}
+    </div>
+  {/each}
+  
+  <h2>Resultados:</h2>
+  {#each results as result, index}
+    <p>Columna {index + 1}: {result}</p>
+  {/each}
+  
+  <h2>Total: {getTotalResult()}</h2>
+  
   <style>
-    /* Estilos opcionales para la apariencia */
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 20px;
+    .column {
+      display: inline-block;
+      vertical-align: top;
+      margin-right: 20px;
     }
   
-    th, td {
-      border: 1px solid black;
-      padding: 8px;
-      text-align: center;
+    .row {
+      margin-bottom: 5px;
     }
   </style>
-  
-  <section>
-    <h1>Test de Personalidad</h1>
-    <table>
-      <thead>
-        <tr>
-          <th></th>
-          <th>Columna 1</th>
-          <th>Columna 2</th>
-          <th>Columna 3</th>
-          <th>Columna 4</th>
-        </tr>
-      </thead>
-      <tbody>
-        {#each respuestas as fila, i}
-          <tr>
-            <td>Fila {i + 1}</td>
-            {#each fila as respuesta, j}
-              <td>
-                <input type="radio" bind:group={respuestas[i][j]} value="4">
-                <input type="radio" bind:group={respuestas[i][j]} value="3">
-                <input type="radio" bind:group={respuestas[i][j]} value="2">
-                <input type="radio" bind:group={respuestas[i][j]} value="1">
-              </td>
-            {/each}
-          </tr>
-        {/each}
-      </tbody>
-    </table>
-    <button on:click={calcularResultados}>Calcular Resultado</button>
-  </section>
   

@@ -1,8 +1,30 @@
 <script>
     let results = [0, 0, 0, 0]; // Inicializa los resultados de las cuatro columnas
+    const excludedRows = new Set([1, 2, 5, 10, 14, 17]); // Define las filas que se excluyen del cálculo
+    const totalSum = 240; // Suma total deseada de las filas no excluidas
   
     function handleChange(columnIndex, rowIndex, value) {
-      results[columnIndex] += value; // Actualiza el resultado de la columna
+      // Verifica si la fila actual está en la lista de filas excluidas
+      if (!excludedRows.has(rowIndex + 1)) {
+        // Calcula la suma actual de los valores de las filas no excluidas
+        const currentSum = results.reduce((acc, result, index) => {
+          if (!excludedRows.has(index + 1)) {
+            return acc + result;
+          }
+          return acc;
+        }, 0);
+        
+        // Calcula la diferencia entre la suma total deseada y la suma actual
+        const difference = totalSum - currentSum;
+        
+        // Actualiza el resultado de la columna solo si la diferencia es mayor que el valor
+        if (value <= difference) {
+          results[columnIndex] += value;
+        } else {
+          // Si el valor es mayor que la diferencia, asigna la diferencia como resultado
+          results[columnIndex] += difference;
+        }
+      }
     }
   
     function getTotalResult() {

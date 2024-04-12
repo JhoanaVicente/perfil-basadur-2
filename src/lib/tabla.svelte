@@ -38,10 +38,11 @@
   <!-- Gráfico -->
   {#if totalResults > 0}
     <div class="chart">
-      <div class="cross">
-        {#each results as result, index}
-          <div class="style-point" style="left: {50 + result * 10}%; top: {50 - results[(index + 2) % 4] * 10}%;"></div>
-        {/each}
+      <div class="diamond">
+        <div class="style-point" style="left: {50 + results[0] * 10}%; top: {50}px;"></div>
+        <div class="style-point" style="left: {50}px; top: {50 - results[1] * 10}%;"></div>
+        <div class="style-point" style="left: {50 - results[2] * 10}%; top: {50}px;"></div>
+        <div class="style-point" style="left: {50}px; top: {50 + results[3] * 10}%;"></div>
         <div class="line" style="left: 0; top: 50%; width: 100%;"></div>
         <div class="line" style="left: 50%; top: 0; height: 100%;"></div>
       </div>
@@ -66,7 +67,7 @@
       height: 200px;
     }
   
-    .cross {
+    .diamond {
       position: absolute;
       width: 100%;
       height: 100%;

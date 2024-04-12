@@ -43,6 +43,12 @@
         <div class="style-point" style="left: {50}%; top: {50 - results[1]}%;"></div>
         <div class="style-point" style="left: {50 - results[2]}%; top: {50}%;"></div>
         <div class="style-point" style="left: {50}%; top: {50 + results[3]}%;"></div>
+        <svg style="position: absolute; width: 100%; height: 100%;">
+          <line x1="{50 + results[0]}%" y1="{50}%" x2="{50}%" y2="{50 - results[1]}%" style="stroke:blue;stroke-width:2" />
+          <line x1="{50}%" y1="{50 - results[1]}%" x2="{50 - results[2]}%" y2="{50}%" style="stroke:blue;stroke-width:2" />
+          <line x1="{50 - results[2]}%" y1="{50}%" x2="{50}%" y2="{50 + results[3]}%" style="stroke:blue;stroke-width:2" />
+          <line x1="{50}%" y1="{50 + results[3]}%" x2="{50 + results[0]}%" y2="{50}%" style="stroke:blue;stroke-width:2" />
+        </svg>
         <div class="line" style="left: 0; top: 50%; width: 100%;"></div>
         <div class="line" style="left: 50%; top: 0; height: 100%;"></div>
       </div>

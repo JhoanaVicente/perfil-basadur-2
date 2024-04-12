@@ -39,10 +39,10 @@
   {#if totalResults > 0}
     <div class="chart">
       <div class="diamond">
-        <div class="style-point" style="left: {50 + results[0] * 10}%; top: {50}px;"></div>
-        <div class="style-point" style="left: {50}px; top: {50 - results[1] * 10}%;"></div>
-        <div class="style-point" style="left: {50 - results[2] * 10}%; top: {50}px;"></div>
-        <div class="style-point" style="left: {50}px; top: {50 + results[3] * 10}%;"></div>
+        <div class="style-point" style="left: {50 + results[0]}%; top: {50}%;"></div>
+        <div class="style-point" style="left: {50}%; top: {50 - results[1]}%;"></div>
+        <div class="style-point" style="left: {50 - results[2]}%; top: {50}%;"></div>
+        <div class="style-point" style="left: {50}%; top: {50 + results[3]}%;"></div>
         <div class="line" style="left: 0; top: 50%; width: 100%;"></div>
         <div class="line" style="left: 50%; top: 0; height: 100%;"></div>
       </div>

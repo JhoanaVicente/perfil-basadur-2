@@ -3,22 +3,51 @@
     const excludedRows = new Set([1, 2, 5, 10, 14, 17]); // Define las filas que se excluyen del cálculo
     let totalResults = 0; // Variable para almacenar el total de resultados
   
+    // Matriz de palabras para cada fila
+    const words = [
+      ["Alerta", "Equilibrada", "Lista", "Ansiosa"],
+      ["Paciente", "Atenta", "Contundente", "Preparada"],
+      ["Hacer", "Infantil", "Observar", "Realista"],
+      ["Experimentar", "Diversificar", "Esperar", "Consolidar"],
+      ["Reservada", "Seria", "Gozador", "Juguetona"],
+      ["Ensayo y Error", "Alternativas", "Sopesar", "Evaluar"],
+      ["Actuar", "Divergir", "Abstraer", "Convergir"],
+      ["Directa", "Posibilidades", "Conceptual", "Realidades"],
+      ["Implicada", "Cambiar Perspectivas", "Teórico", "Enfocar"],
+      ["Silenciosa", "Confiable", "Responsable", "Imaginativa"],
+      ["Implementar", "Visualizar", "Describir", "Seleccionar"],
+      ["Ejecutar", "Orientado al futuro", "Leer", "Detallista"],
+      ["Física", "Crear opciones", "Mental", "Decidir"],
+      ["Impersonal", "Orgullosa", "Esperanzada", "Temeroso"],
+      ["Practicar", "Transformar", "Pensar", "Elegir"],
+      ["Manejar", "Especular", "Contemplar", "Juzgar"],
+      ["Simpatizar", "Práctica", "Emotiva", "Demorar"],
+      ["Tomar contacto", "Diferenciar", "Reflexionar", "Asegurar"]
+    ];
+  
     function handleChange(columnIndex, rowIndex, value) {
       // Verifica si la fila actual está en la lista de filas excluidas
       if (!excludedRows.has(rowIndex + 1)) {
-        results[columnIndex] += value; // Actualiza el resultado de la columna
+        results[columnIndex] = 0; // Restablece el resultado de la columna
+        // Recalcula el resultado de la columna sumando todas las opciones seleccionadas
+        for (let i = 0; i < words.length; i++) {
+          if (!excludedRows.has(i + 1)) { // Asegura que las filas excluidas no se sumen al total
+            results[columnIndex] += +document.getElementById(`select-${columnIndex}-${i}`).value;
+          }
+        }
       }
-      totalResults = results.reduce((acc, columnTotal) => acc + columnTotal, 0); // Calcula el total de resultados
+      // Calcula el total de resultados
+      totalResults = results.reduce((acc, columnTotal) => acc + columnTotal, 0);
     }
   </script>
   
   {#each [0, 1, 2, 3] as columnIndex}
     <div class="column">
       <h2>Columna {columnIndex + 1}</h2>
-      {#each Array.from({ length: 18 }).map((_, rowIndex) => rowIndex) as rowIndex}
+      {#each words as wordSet, rowIndex}
         <div class="row">
-          <span>Palabra {rowIndex + 1}</span>
-          <select on:change={(event) => handleChange(columnIndex, rowIndex, +event.target.value)}>
+          <span>{wordSet[columnIndex]}</span>
+          <select id={`select-${columnIndex}-${rowIndex}`} on:change={(event) => handleChange(columnIndex, rowIndex, +event.target.value)}>
             {#each [0, 1, 2, 3, 4] as value}
               <option value={value}>{value}</option>
             {/each}
@@ -90,6 +119,17 @@
     .line {
       position: absolute;
       border: 1px solid blue;
+    }
+  
+    .column {
+        margin: 28px 28px ;
+    }
+  
+    .row {
+        display: flex;
+        text-align: center;
+        justify-content: space-between;
+        font-size: medium;
     }
   </style>
   
